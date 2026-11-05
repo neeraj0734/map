@@ -1,6 +1,18 @@
 const {getObjRanges, drawBlocks} = require("./map")
 const m = require("./math")
 
+function addCameras(width, height, velcity, count) {
+    let cameras = []
+    for (let index = 0; index < count; index++) {
+        cameras.push(createCamera(width, height, velcity))
+    }
+    return cameras
+}
+
+function createCamera(width, height,velcity) {
+    return {x:0, y: 0, width, height, velcity};
+}
+
 function getUpdatedObjects(camera, blocks) {
     const udpatedBlocks = []
     for (const block of blocks) {

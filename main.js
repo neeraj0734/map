@@ -11,11 +11,19 @@ const config = {
         fps: 50,
     },
     map: {
+        x: 0,
+        y:0,
         width: 2000,
         height: 2000,
     },
     block:{width:100,height:100},
-    camera:{x:0, y: 0, width:500, height:500},
+    cameras : [
+        {x:0, y: 0, width:500, height:500, velcity: {vx:5, vy:5}},
+        {x:0, y: 0, width:500, height:500, velcity: {vx:5, vy:5}},
+        {x:0, y: 0, width:500, height:500, velcity: {vx:5, vy:5}},
+        {x:0, y: 0, width:500, height:500, velcity: {vx:5, vy:5}},
+    ],
+    
 }
 
 function setup(){
@@ -30,18 +38,15 @@ function setup(){
 }
 
 function update(world){
-    moveCamera(world.camera)
-    const blocks = c.getUpdatedObjects(world.camera, world.blocks);
+    moveCamera(world.cameras[0], world.map)
+    const blocks = c.getUpdatedObjects(world.cameras[0], world.blocks);
     map.drawBlocks(blocks)
-    // c.displayObjects(world.camera, world.blocks)
 }
 
 function draw(world){
     r.BeginDrawing();
     r.ClearBackground(r.WHITE);
 
-    // map.drawBlocks(world.blocks)
-    addCamera(world.camera);
 
     r.EndDrawing()
 }
@@ -50,19 +55,40 @@ function addCamera(cam) {
     r.DrawRectangleLines(cam.x, cam.y, cam.width, cam.height, r.RED)
 }
 
-function moveCamera(cam) {
+function constrainCamera(camera, screen) {
+    const minX = screen.x ;
+    const maxX = screen.x + screen.width;
+    const minY = screen.y;
+    const maxY = screen.y + screen.height
+
+    if(camera.x <= minX){
+        camera.x = minX
+    }
+    if(camera.x >= maxX){
+        camera.x = maxX
+    }
+    if(camera.y <= minY){
+        camera.y = minY
+    }
+    if(camera.y >= maxY){
+        camera.y = maxY
+    }
+}
+
+function moveCamera(cam, screen) {
     if(r.IsKeyDown(r.KEY_LEFT)){
-        cam.x -= 2
+        cam.x -= cam.velcity.vx
     }
     if(r.IsKeyDown(r.KEY_RIGHT)){
-        cam.x += 2
+        cam.x += cam.velcity.vx
     }
     if(r.IsKeyDown(r.KEY_UP)){
-        cam.y -= 2
+        cam.y -= cam.velcity.vy
     }
     if(r.IsKeyDown(r.KEY_DOWN)){
-        cam.y += 2
+        cam.y += cam.velcity.vy
     }
+    constrainCamera(cam, screen)
 }
 
 function loop(world){
