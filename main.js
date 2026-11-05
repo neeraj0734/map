@@ -33,13 +33,17 @@ function setup(){
 
     const blocks = map.getRadomBlocksInsideMap(config.map, 50, block, 100)
 
-    config.blocks = blocks
+    config.blocks = blocks;
+    config.focusCamera = config.cameras[0];
     return config
 }
 
 function update(world){
-    moveCamera(world.cameras[0], world.map)
-    const blocks = c.getUpdatedObjects(world.cameras[0], world.blocks);
+    world.focusCamera = c.changeCamera(world.focusCamera, world.cameras);
+    console.log(world.focusCamera);
+    
+    moveCamera(world.focusCamera, world.map)
+    const blocks = c.getUpdatedObjects(world.focusCamera, world.blocks);
     map.drawBlocks(blocks)
 }
 

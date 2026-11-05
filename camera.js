@@ -1,3 +1,4 @@
+const { IsKeyPressed, KEY_W, KEY_A, KEY_S, KEY_D } = require("raylib")
 const {getObjRanges, drawBlocks} = require("./map")
 const m = require("./math")
 
@@ -37,8 +38,17 @@ function isBlockInsideCamera(camera, block) {
     return isInHRange && isInVRange
 }
 
+function changeCamera(focusCamera,cameras) {
+    if(IsKeyPressed(KEY_A)){return cameras[1]}
+    if(IsKeyPressed(KEY_S)){return cameras[2]}
+    if(IsKeyPressed(KEY_D)){return cameras[3]}
+    if(IsKeyPressed(KEY_W)){return cameras[0]}
+    return focusCamera;
+}
+
 
 module.exports={
     isBlocksInsideCamera: isBlockInsideCamera,
-    getUpdatedObjects
+    getUpdatedObjects,
+    changeCamera
 }
