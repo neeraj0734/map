@@ -1,19 +1,13 @@
-const {getObjRanges} = require("./map")
+const {getObjRanges, drawBlocks} = require("./map")
 const m = require("./math")
 
-function displayObjects(camera, blocks) {
-    let numberOfInnerObjects = 0;
+function getUpdatedObjects(camera, blocks) {
+    const udpatedBlocks = []
     for (const block of blocks) {
-        if (isBlockInsideCamera(camera, block)) {
-            const pos = calcPosInResOfCamera(camera, block)
-            // console.log("Block inside camera : ", block);
-            numberOfInnerObjects++;
-            block.x = pos.x;
-            block.y = pos.y;
-        }      
+        const pos = calcPosInResOfCamera(camera, block)
+        udpatedBlocks.push({x:pos.x, y:pos.y, width: block.width, height: block.height, color: block.color})
     }
-    // console.log("numberOfInnerObjects : ", numberOfInnerObjects);
-    
+    return udpatedBlocks
 }
 
 function calcPosInResOfCamera(camera, block){
@@ -34,5 +28,5 @@ function isBlockInsideCamera(camera, block) {
 
 module.exports={
     isBlocksInsideCamera: isBlockInsideCamera,
-    displayObjects
+    getUpdatedObjects
 }

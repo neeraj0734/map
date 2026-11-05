@@ -31,14 +31,16 @@ function setup(){
 
 function update(world){
     moveCamera(world.camera)
-    c.displayObjects(world.camera, world.blocks)
+    const blocks = c.getUpdatedObjects(world.camera, world.blocks);
+    map.drawBlocks(blocks)
+    // c.displayObjects(world.camera, world.blocks)
 }
 
 function draw(world){
     r.BeginDrawing();
     r.ClearBackground(r.WHITE);
 
-    map.drawBlocks(world.blocks)
+    // map.drawBlocks(world.blocks)
     addCamera(world.camera);
 
     r.EndDrawing()
