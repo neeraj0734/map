@@ -32,7 +32,7 @@ function setup(){
     r.SetTargetFPS(screen.fps)
 
     const blocks = map.getRadomBlocksInsideMap(config.map, 50, block, 100)
-    const cars = cr.getCars(40, 80, 50, 50)
+    const cars = cr.getCars(40, 80, 50, 5)
 
     config.blocks = blocks;
     config.focusCamera = config.cameras[0];
@@ -50,6 +50,8 @@ function update(world){
 
     const updatedCars = c.getUpdatedObjects(world.focusCamera, world.cars);
     cr.drawCars(updatedCars)
+
+    cr.moveCars(world.cars)
 }
 
 function draw(world){
