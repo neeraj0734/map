@@ -1,7 +1,7 @@
 const r = require("raylib")
 const map = require("./map");
 const c = require("./camera");
-
+const cr = require("./car");
 
 const config = {
     screen: {
@@ -32,9 +32,11 @@ function setup(){
     r.SetTargetFPS(screen.fps)
 
     const blocks = map.getRadomBlocksInsideMap(config.map, 50, block, 100)
+    const cars = cr.getCars(40, 80, 50, 50)
 
     config.blocks = blocks;
     config.focusCamera = config.cameras[0];
+    config.cars = cars;
     return config
 }
 
@@ -44,14 +46,18 @@ function update(world){
     
     moveCamera(world.focusCamera, world.map)
     const blocks = c.getUpdatedObjects(world.focusCamera, world.blocks);
-    map.drawBlocks(blocks)
+    map.drawBlocks(blocks);
+
+    const updatedCars = c.getUpdatedObjects(world.focusCamera, world.cars);
+    cr.drawCars(updatedCars)
 }
 
 function draw(world){
     r.BeginDrawing();
     r.ClearBackground(r.WHITE);
 
-
+    // cr.drawCar(world.cars)
+    
     r.EndDrawing()
 }
 

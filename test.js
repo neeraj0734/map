@@ -1,5 +1,6 @@
 const m = require("./math")
 const map = require("./map")
+const car = require("./car")
 
 
 const hRange = {start : 0, end: 2000}
@@ -8,7 +9,8 @@ const mapRange = {width:2000, height: 2000}
 const blockProp = {width: 100, height: 100}
 
 
-console.log(map.getRadomBlocksInsideMap(mapRange, 50, blockProp, 10));
+// console.log(map.getRadomBlocksInsideMap(mapRange, 50, blockProp, 10));
+console.log(car.getCars(40, 50, 50, 10));
 
 
 // console.log(m.getRandomValue(range))

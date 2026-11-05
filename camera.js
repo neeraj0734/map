@@ -14,18 +14,18 @@ function createCamera(width, height,velcity) {
     return {x:0, y: 0, width, height, velcity};
 }
 
-function getUpdatedObjects(camera, blocks) {
+function getUpdatedObjects(camera, objects) {
     const udpatedBlocks = []
-    for (const block of blocks) {
-        const pos = calcPosInResOfCamera(camera, block)
-        udpatedBlocks.push({x:pos.x, y:pos.y, width: block.width, height: block.height, color: block.color})
+    for (const obj of objects) {
+        const pos = calcPosInResOfCamera(camera, obj)
+        udpatedBlocks.push({x:pos.x, y:pos.y, width: obj.width, height: obj.height, color: obj.color})
     }
     return udpatedBlocks
 }
 
-function calcPosInResOfCamera(camera, block){
-    const x = block.x - camera.x;
-    const y = block.y - camera.y;
+function calcPosInResOfCamera(camera, obj){
+    const x = obj.x - camera.x;
+    const y = obj.y - camera.y;
     return {x, y}
 }
 

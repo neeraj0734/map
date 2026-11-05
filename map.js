@@ -47,5 +47,5 @@ function getObjRanges(obj) {
 module.exports = {
     getRadomBlocksInsideMap, 
     drawBlocks,
-    getObjRanges
+    getObjRanges, getRandomColor
 }
